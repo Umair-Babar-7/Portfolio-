@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 248 250 252;
+    --foreground: 15 23 42;
+    --primary: 249 115 22;
+    --muted: 100 116 139;
+    --border: 226 232 240;
+    --card: 255 255 255;
+    --card-foreground: 15 23 42;
+  }
+
+  .dark {
+    --background: 15 23 42;
+    --foreground: 248 250 252;
+    --primary: 249 115 22;
+    --muted: 148 163 184;
+    --border: 51 65 85;
+    --card: 30 41 59;
+    --card-foreground: 248 250 252;
+  }
+
+  * {
+    @apply border-navy-200 dark:border-navy-700;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-surface-light text-navy-900 font-body antialiased dark:bg-navy-950 dark:text-navy-50;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-primary;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-navy-300 dark:bg-navy-600;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/20 bg-white/60 backdrop-blur-xl dark:border-white/10 dark:bg-navy-900/60;
+  }
+
+  .glass-card {
+    @apply rounded-2xl border border-white/20 bg-white/60 shadow-glass backdrop-blur-xl dark:border-white/10 dark:bg-navy-900/60 dark:shadow-glass-dark;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-orange-amber bg-clip-text text-transparent;
+  }
+
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(var(--card-bg, #fff), var(--card-bg, #fff))
+      padding-box,
+      linear-gradient(135deg, #f97316, #0f172a) border-box;
+    border: 1px solid transparent;
+  }
+
+  .dark .gradient-border {
+    --card-bg: #1e293b;
+  }
+
+  .section-padding {
+    @apply px-4 py-20 sm:px-6 lg:px-8 lg:py-28;
+  }
+
+  .container-custom {
+    @apply mx-auto max-w-7xl;
+  }
+
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+  }
+
+  .dark .noise-overlay {
+    opacity: 0.05;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
