@@ -26,7 +26,7 @@ export function ContactForm() {
 
     const subject = encodeURIComponent(formData.subject || "Portfolio inquiry");
     const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`,
     );
 
     window.location.href = `mailto:${SITE_CONFIG.email}?subject=${subject}&body=${body}`;
@@ -37,9 +37,27 @@ export function ContactForm() {
   };
 
   const fields = [
-    { id: "name", label: "Name", type: "text", placeholder: "Your name", half: true },
-    { id: "email", label: "Email", type: "email", placeholder: "your@email.com", half: true },
-    { id: "subject", label: "Subject", type: "text", placeholder: "Project inquiry", half: false },
+    {
+      id: "name",
+      label: "Name",
+      type: "text",
+      placeholder: "Your name",
+      half: true,
+    },
+    {
+      id: "email",
+      label: "Email",
+      type: "email",
+      placeholder: "your@email.com",
+      half: true,
+    },
+    {
+      id: "subject",
+      label: "Subject",
+      type: "text",
+      placeholder: "Project inquiry",
+      half: false,
+    },
   ] as const;
 
   return (
@@ -49,7 +67,7 @@ export function ContactForm() {
       viewport={defaultViewport}
       variants={fadeInUp}
       onSubmit={handleSubmit}
-      className="glass-card p-6 sm:p-8"
+      className="glass-card min-w-0 p-6 sm:p-8"
     >
       <div className="grid gap-5 sm:grid-cols-2">
         {fields.map((field) => (
@@ -70,9 +88,12 @@ export function ContactForm() {
               placeholder={field.placeholder}
               value={formData[field.id]}
               onChange={(event) =>
-                setFormData((previous) => ({ ...previous, [field.id]: event.target.value }))
+                setFormData((previous) => ({
+                  ...previous,
+                  [field.id]: event.target.value,
+                }))
               }
-              className="w-full rounded-xl border border-navy-200 bg-white/50 px-4 py-3 text-sm text-navy-900 placeholder:text-navy-400 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-navy-600 dark:bg-navy-800/50 dark:text-white dark:placeholder:text-navy-500"
+              className="min-w-0 w-full rounded-xl border border-navy-200 bg-white/50 px-4 py-3 text-sm text-navy-900 placeholder:text-navy-400 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-navy-600 dark:bg-navy-800/50 dark:text-white dark:placeholder:text-navy-500"
             />
           </div>
         ))}
@@ -91,9 +112,12 @@ export function ContactForm() {
             placeholder="Tell me about your project..."
             value={formData.message}
             onChange={(event) =>
-              setFormData((previous) => ({ ...previous, message: event.target.value }))
+              setFormData((previous) => ({
+                ...previous,
+                message: event.target.value,
+              }))
             }
-            className="w-full resize-none rounded-xl border border-navy-200 bg-white/50 px-4 py-3 text-sm text-navy-900 placeholder:text-navy-400 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-navy-600 dark:bg-navy-800/50 dark:text-white dark:placeholder:text-navy-500"
+            className="min-w-0 w-full resize-none rounded-xl border border-navy-200 bg-white/50 px-4 py-3 text-sm text-navy-900 placeholder:text-navy-400 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-navy-600 dark:bg-navy-800/50 dark:text-white dark:placeholder:text-navy-500"
           />
         </div>
       </div>

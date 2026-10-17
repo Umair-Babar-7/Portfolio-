@@ -4,6 +4,7 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { CursorGlow } from "@/components/CursorGlow";
+import { ExpertiseMarquee } from "@/components/ExpertiseMarquee";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
 import { Skills } from "@/sections/Skills";
@@ -23,6 +24,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <ExpertiseMarquee />
         <About />
         <Skills />
         <Projects />

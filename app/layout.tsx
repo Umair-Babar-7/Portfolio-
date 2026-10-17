@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { MotionPreferences } from "@/components/MotionPreferences";
 import { SITE_CONFIG } from "@/constants";
 import { generatePersonSchema } from "@/lib/utils";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "../public/fonts/inter-latin-variable.woff2",
+  weight: "100 900",
   variable: "--font-inter",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
+const spaceGrotesk = localFont({
+  src: "../public/fonts/space-grotesk-latin-variable.woff2",
+  weight: "300 700",
   variable: "--font-space-grotesk",
   display: "swap",
 });
@@ -88,10 +91,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-body antialiased`}>
+      <body
+        className={`${inter.variable} ${spaceGrotesk.variable} font-body antialiased`}
+      >
         <ThemeProvider>
-          {children}
-          <div className="noise-overlay" aria-hidden="true" />
+          <MotionPreferences>
+            {children}
+            <div className="noise-overlay" aria-hidden="true" />
+          </MotionPreferences>
         </ThemeProvider>
       </body>
     </html>

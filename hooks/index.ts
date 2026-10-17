@@ -1,5 +1,6 @@
 "use client";
 
+import { useMotionPreferences } from "@/components/MotionPreferences";
 import { useEffect, useState, useCallback, RefObject } from "react";
 
 /** Track scroll progress (0–1) */
@@ -39,7 +40,7 @@ export function useActiveSection(sectionIds: string[]) {
             setActiveSection(id);
           }
         },
-        { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+        { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
       );
 
       observer.observe(element);
@@ -56,12 +57,13 @@ export function useActiveSection(sectionIds: string[]) {
 export function useCounter(
   end: number,
   duration: number = 2000,
-  start: boolean = false
+  start: boolean = false,
 ) {
+  const { reduceMotion } = useMotionPreferences();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!start) return;
+    if (!start || reduceMotion) return;
 
     let startTime: number | null = null;
     let animationFrame: number;
@@ -79,9 +81,9 @@ export function useCounter(
 
     animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration, start]);
+  }, [end, duration, start, reduceMotion]);
 
-  return count;
+  return reduceMotion ? end : count;
 }
 
 /** Mouse position relative to element for tilt effects */
@@ -97,7 +99,7 @@ export function useMousePosition(ref: RefObject<HTMLElement | null>) {
         y: e.clientY - rect.top - rect.height / 2,
       });
     },
-    [ref]
+    [ref],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -124,7 +126,7 @@ export function useTypingAnimation(
   words: readonly string[],
   typingSpeed: number = 80,
   deletingSpeed: number = 40,
-  pauseDuration: number = 2000
+  pauseDuration: number = 2000,
 ) {
   const [displayText, setDisplayText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
@@ -150,7 +152,7 @@ export function useTypingAnimation(
           }
         }
       },
-      isDeleting ? deletingSpeed : typingSpeed
+      isDeleting ? deletingSpeed : typingSpeed,
     );
 
     return () => clearTimeout(timeout);
@@ -167,10 +169,12 @@ export function useTypingAnimation(
   return displayText;
 }
 
+const DEFAULT_IN_VIEW_OPTIONS: IntersectionObserverInit = { threshold: 0.2 };
+
 /** Detect if element is in viewport for triggering animations */
 export function useInView(
   ref: RefObject<HTMLElement | null>,
-  options: IntersectionObserverInit = { threshold: 0.2 }
+  options: IntersectionObserverInit = DEFAULT_IN_VIEW_OPTIONS,
 ) {
   const [isInView, setIsInView] = useState(false);
 

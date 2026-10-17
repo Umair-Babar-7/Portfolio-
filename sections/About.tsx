@@ -41,7 +41,7 @@ export function About() {
       <div className="container-custom">
         <SectionTitle
           subtitle="About Me"
-          title="Machine Learning With Clean, Useful Data"
+          title="A curious mind. A practical approach."
           description="I build practical ML workflows from raw data to model-ready insights."
         />
 
@@ -54,24 +54,28 @@ export function About() {
             className="space-y-5 text-base leading-relaxed text-slate dark:text-navy-400"
           >
             <p>
-              I&apos;m <strong className="text-navy-900 dark:text-white">Umair Babar</strong>, a
-              Machine Learning Engineer with hands-on experience in machine learning, data
-              science, data cleaning, and Python libraries.
+              I&apos;m{" "}
+              <strong className="text-navy-900 dark:text-white">
+                Umair Babar
+              </strong>
+              , a Machine Learning Engineer with hands-on experience in machine
+              learning, data science, data cleaning, and Python libraries.
             </p>
             <p>
-              I focus on end-to-end ML pipelines: preparing messy datasets, engineering
-              useful features, training models, evaluating performance, and turning the
-              results into clear notebooks, dashboards, or portfolio-ready applications.
+              I focus on end-to-end ML pipelines: preparing messy datasets,
+              engineering useful features, training models, evaluating
+              performance, and turning the results into clear notebooks,
+              dashboards, or portfolio-ready applications.
             </p>
             <p>
               My toolkit includes Python, NumPy, Pandas, Matplotlib, Seaborn,
-              Scikit-Learn, Jupyter, Git, and modern web tools for presenting work in a
-              clean and professional way.
+              Scikit-Learn, Jupyter, Git, and modern web tools for presenting
+              work in a clean and professional way.
             </p>
             <p>
-              I enjoy projects where clean data and thoughtful modeling can make a real
-              difference, especially prediction, classification, recommendation,
-              analysis, and automation workflows.
+              I enjoy projects where clean data and thoughtful modeling can make
+              a real difference, especially prediction, classification,
+              recommendation, analysis, and automation workflows.
             </p>
           </motion.div>
 

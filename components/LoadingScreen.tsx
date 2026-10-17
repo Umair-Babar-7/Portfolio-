@@ -1,17 +1,23 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { useMotionPreferences } from "@/components/MotionPreferences";
 import { useLoadingScreen } from "@/hooks";
 
 export function LoadingScreen() {
   const isLoading = useLoadingScreen(700);
+  const { reduceMotion } = useMotionPreferences();
+  if (reduceMotion) return null;
 
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.6, ease: "easeInOut" } }}
+          exit={{
+            opacity: 0,
+            transition: { duration: 0.6, ease: "easeInOut" },
+          }}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-navy-950"
         >
           {/* Animated logo */}

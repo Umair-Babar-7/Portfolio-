@@ -5,23 +5,46 @@ import { Mail, Github, Linkedin, MapPin } from "lucide-react";
 import { SectionTitle } from "@/components/SectionTitle";
 import { ContactForm } from "@/components/ContactForm";
 import { SITE_CONFIG, SOCIAL_LINKS } from "@/constants";
-import { fadeInUp, slideInLeft, slideInRight, defaultViewport } from "@/lib/animations";
+import {
+  fadeInUp,
+  slideInLeft,
+  slideInRight,
+  defaultViewport,
+} from "@/lib/animations";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
-  { icon: Github, label: "GitHub", value: "github.com/Umair-Babar-7", href: SITE_CONFIG.github },
+  {
+    icon: Mail,
+    label: "Email",
+    value: SITE_CONFIG.email,
+    href: `mailto:${SITE_CONFIG.email}`,
+  },
+  {
+    icon: Github,
+    label: "GitHub",
+    value: "github.com/Umair-Babar-7",
+    href: SITE_CONFIG.github,
+  },
   {
     icon: Linkedin,
     label: "LinkedIn",
     value: "linkedin.com/in/umair-babar-6577a53ba",
     href: SITE_CONFIG.linkedin,
   },
-  { icon: MapPin, label: "Location", value: SITE_CONFIG.location, href: undefined },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: SITE_CONFIG.location,
+    href: undefined,
+  },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="section-padding bg-navy-50/50 dark:bg-navy-900/30">
+    <section
+      id="contact"
+      className="section-padding bg-navy-50/50 dark:bg-navy-900/30"
+    >
       <div className="container-custom">
         <SectionTitle
           subtitle="Contact"
@@ -35,12 +58,12 @@ export function Contact() {
             whileInView="visible"
             viewport={defaultViewport}
             variants={slideInLeft}
-            className="space-y-6 lg:col-span-2"
+            className="min-w-0 space-y-6 lg:col-span-2"
           >
             <p className="text-base leading-relaxed text-slate dark:text-navy-400">
-              Whether you need a predictive model, a cleaned dataset, an analysis
-              notebook, or a polished dashboard, send the details and I will get
-              back to you.
+              Whether you need a predictive model, a cleaned dataset, an
+              analysis notebook, or a polished dashboard, send the details and I
+              will get back to you.
             </p>
 
             <div className="space-y-4">
@@ -49,16 +72,22 @@ export function Contact() {
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <item.icon className="h-5 w-5" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs font-medium uppercase tracking-wider text-slate dark:text-navy-500">
                       {item.label}
                     </p>
                     {item.href ? (
                       <a
                         href={item.href}
-                        target={item.href.startsWith("http") ? "_blank" : undefined}
-                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="text-sm font-medium text-navy-900 transition-colors hover:text-primary dark:text-white"
+                        target={
+                          item.href.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          item.href.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        className="break-words text-sm font-medium text-navy-900 transition-colors hover:text-primary dark:text-white"
                       >
                         {item.value}
                       </a>
@@ -85,7 +114,9 @@ export function Contact() {
                   aria-label={social.name}
                 >
                   {social.name === "GitHub" && <Github className="h-5 w-5" />}
-                  {social.name === "LinkedIn" && <Linkedin className="h-5 w-5" />}
+                  {social.name === "LinkedIn" && (
+                    <Linkedin className="h-5 w-5" />
+                  )}
                   {social.name === "Email" && <Mail className="h-5 w-5" />}
                 </motion.a>
               ))}
@@ -97,7 +128,7 @@ export function Contact() {
             whileInView="visible"
             viewport={defaultViewport}
             variants={slideInRight}
-            className="lg:col-span-3"
+            className="min-w-0 lg:col-span-3"
           >
             <ContactForm />
           </motion.div>

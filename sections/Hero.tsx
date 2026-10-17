@@ -1,161 +1,217 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Download, FolderOpen, Mail, MapPin } from "lucide-react";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  MapPin,
+  Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/Button";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { useMotionPreferences } from "@/components/MotionPreferences";
 import { HERO_ROLES, SITE_CONFIG } from "@/constants";
-import { useTypingAnimation } from "@/hooks";
-import { fadeInUp, slideInRight, textReveal, staggerContainer } from "@/lib/animations";
+import { fadeInUp, staggerContainer, textReveal } from "@/lib/animations";
 
-export function Hero() {
-  const typedText = useTypingAnimation(HERO_ROLES);
+function RotatingRole() {
+  const [index, setIndex] = useState(0);
+  const { reduceMotion } = useMotionPreferences();
+  useEffect(() => {
+    if (reduceMotion) return;
+    const timer = setInterval(
+      () => setIndex((current) => (current + 1) % HERO_ROLES.length),
+      3200,
+    );
+    return () => clearInterval(timer);
+  }, [reduceMotion]);
 
   return (
-    <section
-      id="home"
-      className="relative flex min-h-screen items-center overflow-hidden section-padding pt-32"
-    >
-      <AnimatedBackground />
+    <div className="hero-role" aria-label={HERO_ROLES[0]}>
+      <span className="text-primary" aria-hidden="true">
+        &lt;
+      </span>
+      <span className="relative block overflow-hidden" aria-hidden="true">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={reduceMotion ? "static" : index}
+            initial={reduceMotion ? false : { y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -24, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="block"
+          >
+            {HERO_ROLES[reduceMotion ? 0 : index]}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+      <span className="text-primary" aria-hidden="true">
+        /&gt;
+      </span>
+    </div>
+  );
+}
 
-      <div className="container-custom relative z-10">
+export function Hero() {
+  const { reduceMotion } = useMotionPreferences();
+  const { scrollY } = useScroll();
+  const portraitY = useTransform(scrollY, [0, 850], [0, 90]);
+
+  return (
+    <section id="home" className="hero-section">
+      <AnimatedBackground />
+      <div className="container-custom relative z-10 w-full">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16"
+          className="hero-layout"
         >
-          {/* Text content */}
-          <div className="order-2 lg:order-1">
-            <motion.p
-              variants={textReveal}
-              className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary"
-            >
-              Welcome to my portfolio
-            </motion.p>
-
-            <motion.h1
-              variants={textReveal}
-              className="font-heading text-4xl font-bold leading-tight tracking-tight text-navy-900 dark:text-white sm:text-5xl lg:text-6xl xl:text-7xl"
-            >
-              Hi, I&apos;m{" "}
-              <span className="gradient-text">Umair Babar</span>
-            </motion.h1>
-
-            <motion.div variants={fadeInUp} className="mt-6 h-8">
-              <span className="font-heading text-xl font-medium text-navy-700 dark:text-navy-300 sm:text-2xl">
-                {typedText}
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.8, repeat: Infinity }}
-                  className="ml-0.5 inline-block h-6 w-0.5 bg-primary align-middle"
-                />
-              </span>
+          <div className="min-w-0">
+            <motion.div variants={fadeInUp} className="availability-label">
+              <span className="status-dot" /> Available for new projects
             </motion.div>
-
-            <motion.p
-              variants={fadeInUp}
-              className="mt-6 max-w-lg text-lg leading-relaxed text-slate dark:text-navy-400"
-            >
-              I build machine learning and data science projects with clean Python
-              workflows, careful preprocessing, and practical model evaluation.
+            <motion.p variants={textReveal} className="hero-intro">
+              Hello, I&apos;m Umair Babar.
             </motion.p>
-
+            <motion.h1 variants={textReveal} className="hero-heading">
+              Turning data
+              <br />
+              into{" "}
+              <span className="hero-heading-accent">
+                real
+                <br className="hidden xl:block" /> impact.
+              </span>
+            </motion.h1>
+            <motion.div variants={fadeInUp} className="mt-6">
+              <RotatingRole />
+            </motion.div>
+            <motion.p variants={fadeInUp} className="hero-description">
+              I bring clarity to complex data. Building thoughtful machine
+              learning solutions, from the first messy dataset to the final
+              insight.
+            </motion.p>
             <motion.div
               variants={fadeInUp}
-              className="mt-8 flex flex-wrap gap-4"
+              className="mt-8 flex flex-wrap items-center gap-3"
             >
-              <Button
-                href={SITE_CONFIG.resumeUrl}
-                external
-                icon={<Download className="h-4 w-4" />}
-              >
-                Download Resume
-              </Button>
               <Button
                 href="#projects"
-                variant="outline"
-                icon={<FolderOpen className="h-4 w-4" />}
+                size="lg"
+                icon={<ArrowUpRight size={18} />}
               >
-                View Projects
+                Explore my work
               </Button>
-              <Button
-                href="#contact"
-                variant="ghost"
-                icon={<Mail className="h-4 w-4" />}
-              >
-                Contact Me
+              <Button href="#contact" variant="outline" size="lg">
+                Let&apos;s talk
               </Button>
             </motion.div>
-
-            <motion.div
-              variants={fadeInUp}
-              className="mt-8 flex items-center gap-2 text-sm text-slate dark:text-navy-400"
-            >
-              <MapPin className="h-4 w-4 text-primary" />
-              {SITE_CONFIG.location}
+            <motion.div variants={fadeInUp} className="hero-socials">
+              <span className="flex items-center gap-2">
+                <MapPin size={14} /> Based in {SITE_CONFIG.location}
+              </span>
+              <span className="hero-social-divider" />
+              <a
+                href={SITE_CONFIG.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Umair on GitHub"
+              >
+                <Github size={18} />
+              </a>
+              <a
+                href={SITE_CONFIG.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Umair on LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
             </motion.div>
           </div>
-
-          {/* Profile image */}
           <motion.div
-            variants={slideInRight}
-            className="order-1 flex justify-center lg:order-2"
+            variants={textReveal}
+            style={{ y: reduceMotion ? 0 : portraitY }}
+            className="hero-portrait-area"
           >
-            <div className="relative">
-              {/* Decorative rings */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -inset-4 rounded-full border border-dashed border-primary/30"
-              />
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute -inset-8 rounded-full border border-primary/10"
-              />
-
-              <div className="relative h-64 w-64 overflow-hidden rounded-3xl border-2 border-primary/20 shadow-glow-lg sm:h-80 sm:w-80">
+            <div className="portrait-orbit" aria-hidden="true" />
+            <div className="portrait-frame">
+              <div className="portrait-topline">
+                <span>THE HUMAN BEHIND THE MODELS</span>
+                <span>01 / UB</span>
+              </div>
+              <div className="portrait-image">
                 <Image
                   src="/Umair Babar.jpeg"
-                  alt="Umair Babar - Machine Learning Engineer"
+                  alt="Umair Babar, Machine Learning Engineer"
                   fill
-                  className="object-cover"
                   priority
-                  sizes="(max-width: 768px) 256px, 320px"
+                  sizes="(max-width: 640px) 85vw, (max-width: 1024px) 440px, 420px"
+                  className="object-cover object-top"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/40 to-transparent" />
+                <div className="portrait-image-shade" />
+                <div className="portrait-caption">
+                  <span>Curiosity. Code. Clarity.</span>
+                  <Sparkles size={19} />
+                </div>
               </div>
-
-              {/* Floating badge */}
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-4 -right-4 rounded-2xl glass-card px-4 py-3 shadow-glow"
-              >
-                <p className="text-xs text-slate dark:text-navy-400">Available for</p>
-                <p className="font-heading text-sm font-bold text-primary">New Projects</p>
-              </motion.div>
+              <div className="portrait-bottomline">
+                <span>
+                  <i /> Open to collaboration
+                </span>
+                <span>PK · WORLDWIDE</span>
+              </div>
             </div>
+            <motion.div
+              animate={reduceMotion ? { y: 0 } : { y: [0, -9, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="hero-code-card"
+            >
+              <div className="code-card-header">
+                <span className="flex gap-1.5">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                <span>workflow.py</span>
+              </div>
+              <p>
+                <span className="text-primary">def</span>{" "}
+                build_something_meaningful():
+              </p>
+              <p className="pl-4">
+                <span className="text-navy-400">data</span> = curiosity + code
+              </p>
+              <p className="pl-4">
+                <span className="text-primary">return</span> real_world_impact
+              </p>
+              <span className="code-card-cursor" />
+            </motion.div>
+            <span className="portrait-side-note" aria-hidden="true">
+              ALWAYS LEARNING. ALWAYS BUILDING.
+            </span>
           </motion.div>
         </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 lg:block"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="flex h-10 w-6 items-start justify-center rounded-full border-2 border-navy-300 p-1 dark:border-navy-600"
-          >
-            <motion.div className="h-2 w-1 rounded-full bg-primary" />
-          </motion.div>
-        </motion.div>
+        <div className="hero-footer">
+          <a href="#about" className="group flex items-center gap-3">
+            <span className="scroll-arrow">
+              <ArrowDown size={15} />
+            </span>{" "}
+            Scroll to discover
+          </a>
+          <span className="hidden sm:block">
+            A little curiosity can change everything.
+          </span>
+          <span className="font-mono text-xs">PORTFOLIO / 01</span>
+        </div>
       </div>
     </section>
   );

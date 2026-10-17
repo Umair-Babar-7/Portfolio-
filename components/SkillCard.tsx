@@ -19,9 +19,11 @@ import {
   Code2,
   type LucideIcon,
 } from "lucide-react";
-import { useMousePosition, useInView } from "@/hooks";
+import { useInView } from "@/hooks";
 import { fadeInUp, defaultViewport } from "@/lib/animations";
 import { cn } from "@/lib/utils";
+import { TiltCard } from "@/components/TiltCard";
+import { useMotionPreferences } from "@/components/MotionPreferences";
 
 const iconMap: Record<string, LucideIcon> = {
   brain: Brain,
@@ -54,12 +56,9 @@ interface SkillCardProps {
 
 export function SkillCard({ name, level, icon, index = 0 }: SkillCardProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { x, y } = useMousePosition(ref);
+  const { reduceMotion } = useMotionPreferences();
   const isInView = useInView(ref);
   const Icon = iconMap[icon] ?? Brain;
-
-  const rotateX = (y / 300) * -10;
-  const rotateY = (x / 300) * 10;
 
   return (
     <motion.div
@@ -69,15 +68,12 @@ export function SkillCard({ name, level, icon, index = 0 }: SkillCardProps) {
       viewport={defaultViewport}
       variants={fadeInUp}
       transition={{ delay: index * 0.05 }}
-      style={{
-        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-      }}
       className="group relative"
     >
-      <div
+      <TiltCard
         className={cn(
           "glass-card relative overflow-hidden p-5 transition-all duration-300",
-          "hover:shadow-glow hover:border-primary/20"
+          "hover:shadow-glow hover:border-primary/20",
         )}
       >
         {/* Hover glow */}
@@ -95,7 +91,11 @@ export function SkillCard({ name, level, icon, index = 0 }: SkillCardProps) {
               <motion.div
                 initial={{ width: 0 }}
                 animate={isInView ? { width: `${level}%` } : { width: 0 }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                transition={{
+                  duration: reduceMotion ? 0 : 1.2,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: reduceMotion ? 0 : 0.2,
+                }}
                 className="h-full rounded-full bg-gradient-orange-amber"
               />
             </div>
@@ -104,7 +104,7 @@ export function SkillCard({ name, level, icon, index = 0 }: SkillCardProps) {
             </span>
           </div>
         </div>
-      </div>
+      </TiltCard>
     </motion.div>
   );
 }

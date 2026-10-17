@@ -70,7 +70,7 @@ Edit `constants/index.ts` to update:
 - Skills, projects, experience, education
 - Achievement stats and tech stack
 
-Replace the profile image URL in `sections/Hero.tsx` and add your resume to `public/resume.pdf`.
+Replace `public/Umair Babar.jpeg` to update the portrait. The project illustrations in `components/ProjectVisual.tsx` are local SVG visuals, so they do not require an external image service.
 
 Update `SITE_CONFIG.url` in constants for production deployment.
 
@@ -85,3 +85,24 @@ npx vercel
 ## License
 
 MIT
+
+## Motion and visual design
+
+The portfolio includes rotating role text, portrait parallax, an expertise marquee,
+masked section headings, pointer-driven card tilt, animated project diagrams,
+filter transitions, skill progress bars, and a scroll-linked experience timeline.
+Use the fixed **Motion on / Motion off** control to pause decorative motion. The
+site also respects the device's reduced-motion preference and avoids pointer
+tracking on touch devices.
+
+`components/MotionPreferences.tsx` coordinates motion preferences;
+`components/TiltCard.tsx` provides shared pointer interactions. Fonts are bundled
+in `public/fonts` with their licenses and are loaded through `next/font/local`.
+
+Validate changes with:
+
+```bash
+npm run lint
+npx tsc --noEmit --incremental false
+npm run build
+```
