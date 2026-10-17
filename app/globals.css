@@ -428,7 +428,7 @@
   }
   .portrait-caption {
     position: absolute;
-    bottom: 22px;
+    bottom: 56px;
     left: 22px;
     right: 22px;
     display: flex;
@@ -461,8 +461,11 @@
   }
   .hero-code-card {
     position: relative;
-    margin: 15px 0 0 28px;
-    width: calc(100% - 8px);
+    top: -88px;
+    left: -48px;
+    z-index: 2;
+    margin: 15px 0 0;
+    width: 330px;
     padding: 14px 17px;
     border-radius: 11px;
     border: 1px solid #344153;
@@ -834,8 +837,8 @@
     font-size: clamp(4.5rem, 8.8vw, 6rem);
   }
   .hero-code-card {
-    width: calc(100% - 16px);
-    margin-left: 16px;
+    left: -24px;
+    width: 300px;
     font-size: 9px;
   }
   .portrait-side-note {
@@ -866,8 +869,8 @@
     margin-top: 10px;
   }
   .hero-code-card {
-    width: 100%;
-    margin-left: 0;
+    left: -8px;
+    width: min(300px, calc(100% - 8px));
   }
   .portrait-orbit {
     width: 110%;
