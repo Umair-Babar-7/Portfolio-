@@ -80,7 +80,8 @@ export const PROJECTS = [
     title: "House Price Prediction",
     description:
       "Regression workflow for real estate pricing with data cleaning, feature engineering, ensemble models, cross-validation, and clear error analysis.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80",
     technologies: ["Python", "Scikit-Learn", "Pandas", "Matplotlib"],
     github: "https://github.com/umairbabar/house-price-prediction",
     demo: "https://house-price-demo.vercel.app",
@@ -91,7 +92,8 @@ export const PROJECTS = [
     title: "Customer Churn Prediction",
     description:
       "Classification pipeline for identifying at-risk customers using cleaned behavioral data, Random Forest models, imbalance handling, and explainability.",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
     technologies: ["Python", "Scikit-Learn", "Pandas", "Seaborn"],
     github: "https://github.com/umairbabar/customer-churn",
     demo: "https://churn-demo.vercel.app",
@@ -102,7 +104,8 @@ export const PROJECTS = [
     title: "Sales Data Cleaning Dashboard",
     description:
       "Python and Pandas workflow that cleans messy sales files, detects missing values and outliers, and produces ready-to-analyze summaries.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
     technologies: ["Python", "Pandas", "Seaborn", "Jupyter"],
     github: "https://github.com/umairbabar/sales-data-cleaning",
     demo: "https://sales-cleaning-demo.vercel.app",
@@ -113,7 +116,8 @@ export const PROJECTS = [
     title: "Movie Recommendation System",
     description:
       "Recommendation engine combining content features and similarity scoring to produce personalized movie suggestions.",
-    image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&q=80",
     technologies: ["Python", "NumPy", "Pandas", "Scikit-Learn"],
     github: "https://github.com/umairbabar/movie-recommender",
     demo: "https://movies-demo.vercel.app",
@@ -124,7 +128,8 @@ export const PROJECTS = [
     title: "Sentiment Analysis",
     description:
       "NLP workflow for product review sentiment using text preprocessing, TF-IDF vectorization, Naive Bayes, and model reporting.",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
     technologies: ["Python", "NLTK", "Scikit-Learn", "Pandas"],
     github: "https://github.com/umairbabar/sentiment-analysis",
     demo: "https://sentiment-demo.vercel.app",
@@ -144,21 +149,12 @@ export const EXPERIENCE = [
   },
   {
     id: "exp-2",
-    role: "Data Science Practitioner",
+    role: "Data Scientist",
     company: "Academic & Independent Projects",
     period: "2023 - 2024",
     description:
       "Analyzed structured datasets, prepared clean notebooks, built predictive models, and visualized findings for decision-making.",
     technologies: ["Python", "Pandas", "Matplotlib", "Jupyter"],
-  },
-  {
-    id: "exp-3",
-    role: "Python Data Analyst",
-    company: "Learning & Practice",
-    period: "2022 - 2023",
-    description:
-      "Strengthened core Python, NumPy, Pandas, visualization, statistics, and machine learning fundamentals through practical datasets.",
-    technologies: ["Python", "NumPy", "Pandas", "Git"],
   },
 ] as const;
 

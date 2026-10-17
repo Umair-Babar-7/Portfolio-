@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { LoadingScreen } from "@/components/LoadingScreen";
+import { PortfolioEntrance } from "@/components/PortfolioEntrance";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { CursorGlow } from "@/components/CursorGlow";
@@ -17,8 +17,7 @@ import { Contact } from "@/sections/Contact";
 
 export default function Home() {
   return (
-    <>
-      <LoadingScreen />
+    <PortfolioEntrance>
       <ScrollProgress />
       <CursorGlow />
       <Navbar />
@@ -36,6 +35,6 @@ export default function Home() {
       </main>
       <Footer />
       <ScrollToTop />
-    </>
+    </PortfolioEntrance>
   );
 }

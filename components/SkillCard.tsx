@@ -19,6 +19,7 @@ import {
   Code2,
   type LucideIcon,
 } from "lucide-react";
+import { TechnologyLogo, technologyLogos } from "@/components/TechnologyLogo";
 import { useInView } from "@/hooks";
 import { fadeInUp, defaultViewport } from "@/lib/animations";
 import { cn } from "@/lib/utils";
@@ -80,8 +81,19 @@ export function SkillCard({ name, level, icon, index = 0 }: SkillCardProps) {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 transition-all duration-300 group-hover:from-primary/5 group-hover:to-transparent" />
 
         <div className="relative flex items-start gap-4">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <Icon className="h-5 w-5" />
+          <div
+            className={cn(
+              "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl",
+              technologyLogos[name]
+                ? "technology-logo-plate"
+                : "bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white",
+            )}
+          >
+            {technologyLogos[name] ? (
+              <TechnologyLogo name={name} />
+            ) : (
+              <Icon className="h-5 w-5" />
+            )}
           </div>
           <div className="min-w-0 flex-1">
             <h4 className="font-heading text-sm font-semibold text-navy-900 dark:text-white">

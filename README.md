@@ -13,14 +13,14 @@ A modern, premium personal portfolio website for **Umair Babar**, Machine Learni
 
 ## Tech Stack
 
-| Category | Technologies |
-|----------|-------------|
+| Category  | Technologies            |
+| --------- | ----------------------- |
 | Framework | Next.js 15 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Animation | Framer Motion, GSAP |
-| Icons | Lucide React |
-| Theming | next-themes |
+| Language  | TypeScript              |
+| Styling   | Tailwind CSS            |
+| Animation | Framer Motion, GSAP     |
+| Icons     | Lucide React            |
+| Theming   | next-themes             |
 
 ## Getting Started
 
@@ -88,7 +88,12 @@ MIT
 
 ## Motion and visual design
 
-The portfolio includes rotating role text, portrait parallax, an expertise marquee,
+The portfolio opens with a name reveal and split-curtain transition. The intro can
+be skipped with its button or Escape, and is bypassed for reduced-motion users.
+The hero features a prominent name and a portrait inside a terminal window, with
+a smaller workflow terminal below it.
+
+The portfolio also includes rotating role text, portrait parallax, an expertise marquee,
 masked section headings, pointer-driven card tilt, animated project diagrams,
 filter transitions, skill progress bars, and a scroll-linked experience timeline.
 Use the fixed **Motion on / Motion off** control to pause decorative motion. The
@@ -98,6 +103,8 @@ tracking on touch devices.
 `components/MotionPreferences.tsx` coordinates motion preferences;
 `components/TiltCard.tsx` provides shared pointer interactions. Fonts are bundled
 in `public/fonts` with their licenses and are loaded through `next/font/local`.
+Original technology logos are bundled in `public/logos`, with source attribution
+and licenses, and shared between the toolkit and relevant skill cards.
 
 Validate changes with:
 

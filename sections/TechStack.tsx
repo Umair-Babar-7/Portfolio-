@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
+import { TechnologyLogo } from "@/components/TechnologyLogo";
 import { TECH_STACK } from "@/constants";
 import { useMotionPreferences } from "@/components/MotionPreferences";
 
-const marks = ["Py", "Sk", "Np", "Pd", "Mt", "Sb", "Jy", "Gt", "Gh"];
 const colors = [
   "#e6b75c",
   "#d79d70",
@@ -40,13 +40,14 @@ export function TechStack() {
               className="toolkit-item"
             >
               <span
+                className="technology-logo-plate"
                 style={{
                   color: colors[index],
                   borderColor: `${colors[index]}30`,
                   background: `${colors[index]}0c`,
                 }}
               >
-                {marks[index]}
+                <TechnologyLogo name={tech.name} />
               </span>
               <p>{tech.name}</p>
             </motion.div>

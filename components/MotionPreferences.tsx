@@ -1,14 +1,36 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
-import { MotionConfig, useReducedMotion } from "framer-motion";
+import {
+  createContext,
+  useContext,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
+import { MotionConfig } from "framer-motion";
 import { Pause, Play } from "lucide-react";
 
 const MotionContext = createContext({ reduceMotion: false });
 export const useMotionPreferences = () => useContext(MotionContext);
 
+function subscribeToReducedMotion(onChange: () => void) {
+  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+const getReducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const getServerReducedMotion = () => false;
+
 export function MotionPreferences({ children }: { children: ReactNode }) {
-  const systemReducedMotion = useReducedMotion();
+  // Keep the server and initial client tree identical, then apply the device setting.
+  // The CSS media query already suppresses decorative animation before hydration.
+  const systemReducedMotion = useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotion,
+    getServerReducedMotion,
+  );
   const [paused, setPaused] = useState(false);
   const reduceMotion = Boolean(systemReducedMotion || paused);
 
